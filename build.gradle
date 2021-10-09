@@ -19,3 +19,33 @@ configurableFileCollection.files.each {
     File file ->
         println file.text
 }
+
+fileTree("./") {
+    ConfigurableFileTree configurableFileTree ->
+        configurableFileTree.visit {
+            FileVisitDetails fileVisitDetails ->
+                println "the file's name is ${fileVisitDetails.name}"
+        }
+    }
+
+copy() {
+    CopySpec copySpec ->
+        from file("1.txt")
+        into "${rootDir}/output"
+        rename {
+            String fileName ->
+                fileName.replace("1", "2")
+        }
+}
+
+task copyMethod {
+    doLast {
+        copy() {
+            CopySpec copySpec ->
+                from file("1.txt")
+                into "${rootDir}/output"
+        }
+    }
+}
+
+// gradle copy copyMethod
