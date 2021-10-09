@@ -48,4 +48,4 @@ task copyMethod {
     }
 }
 
-// gradle copy copyMethod
+// gradle task copyMethod
